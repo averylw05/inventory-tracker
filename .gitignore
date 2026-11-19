@@ -1,0 +1,21 @@
+# Angular dependencies and build output
+node_modules/
+dist/
+.angular/
+
+# Java build output
+target/
+
+# Local settings and credentials
+.env
+.env.*
+application-local.properties
+
+# Editor and operating system files
+.idea/
+.vscode/
+Thumbs.db
+.DS_Store
+
+# Logs
+*.log

@@ -1,0 +1,82 @@
+<div class="app-shell">
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Parts Inventory home">
+      <span class="brand-mark" aria-hidden="true">P</span>
+      <span>Parts Inventory</span>
+    </a>
+    <span class="header-label">Auto parts management</span>
+  </header>
+
+  <main>
+    <div class="page-heading">
+      <div>
+        <p class="eyebrow">INVENTORY</p>
+        <h1>Your parts, at a glance.</h1>
+        <p class="intro">Add parts and keep track of the stock you use.</p>
+      </div>
+      <button class="button button-secondary" type="button" (click)="loadParts()">Refresh inventory</button>
+    </div>
+
+    <div class="workspace">
+      <section class="add-panel" aria-labelledby="add-heading">
+        <h2 id="add-heading">Add a part</h2>
+        <p class="panel-description">Enter a part name and its starting quantity.</p>
+        <form (submit)="$event.preventDefault(); addPart(partNameInput.value, quantityInput.valueAsNumber)">
+          <label for="part-name">Part name</label>
+          <input type="text" id="part-name" #partNameInput placeholder="e.g. Oil filter" required>
+          <label for="quantity">Quantity</label>
+          <input type="number" id="quantity" #quantityInput placeholder="0" min="0" step="1" required>
+          <button class="button button-primary" type="submit">Add part <span aria-hidden="true">+</span></button>
+        </form>
+      </section>
+
+      <section class="inventory-panel" aria-labelledby="inventory-heading">
+        <div class="inventory-heading">
+          <h2 id="inventory-heading">Parts in inventory <span class="count">{{ parts.length }}</span></h2>
+          <span class="stock-note">Low stock at 3 or fewer</span>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Part name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Status</th>
+                <th scope="col"><span class="sr-only">Action</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (part of parts; track part.id) {
+                <tr>
+                  <th scope="row">{{ part.name }}</th>
+                  <td class="quantity">{{ part.quantity }}</td>
+                  <td>
+                    @if (part.quantity === 0) {
+                      <span class="status status-empty">Out of stock</span>
+                    } @else if (part.quantity <= 3) {
+                      <span class="status status-low">Low stock</span>
+                    } @else {
+                      <span class="status status-ready">In stock</span>
+                    }
+                  </td>
+                  <td class="action-cell">
+                    <button class="use-button" type="button" (click)="usePart(part.id)" [disabled]="part.quantity === 0" [attr.aria-label]="'Use one ' + part.name">
+                      Use 1 <span aria-hidden="true">−</span>
+                    </button>
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td class="empty-state" colspan="4">
+                    <strong>Your inventory is empty</strong>
+                    <p>Add your first part using the form.</p>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>

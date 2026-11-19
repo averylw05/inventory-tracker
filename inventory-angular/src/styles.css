@@ -1,0 +1,32 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f5f7fa;
+  color: #172338;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+button, input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+/* Shared table and keyboard focus styles. */
+table { border-collapse: collapse; width: 100%; text-align: left; white-space: nowrap; }
+thead { background: #fafbfd; color: #788598; }
+thead th { font-size: 11px; font-weight: 600; padding: 13px 22px; border-top: 1px solid #edf0f5; border-bottom: 1px solid #edf0f5; }
+tbody th, tbody td { padding: 20px 22px; border-bottom: 1px solid #edf0f5; font-size: 13px; }
+tbody th { font-weight: 600; white-space: normal; min-width: 150px; overflow-wrap: anywhere; }
+tbody tr:last-child > * { border-bottom: 0; }
+button:focus-visible, a:focus-visible { outline: 3px solid #245cda80; outline-offset: 3px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
